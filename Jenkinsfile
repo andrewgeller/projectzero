@@ -17,7 +17,16 @@ pipeline {
     }
     stage('Test') {
       steps {
-        echo 'Testing..'
+        parallel(
+          "Test": {
+            echo 'Testing..'
+            
+          },
+          "": {
+            input(message: 'Did this pass a visual inspection', id: '1234')
+            
+          }
+        )
       }
     }
     stage('Deploy') {
